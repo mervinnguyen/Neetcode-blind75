@@ -11,5 +11,5 @@ class Solution:
             if i in hashmap:
                 return True    #iterate through each integer in nums, if the integer is in hashmap, return 
             #add integer to hashmap
-            hashmap[i] = 1
+            hashmap[i] = 1 #add key-value pair to hashmap for integer in array
         return False
