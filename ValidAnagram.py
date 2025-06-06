@@ -8,11 +8,14 @@ class Solution:
         hashS = {}
         hashT = {}
         s = sorted(s)
-        print(s)
+        t = sorted(t)
+        if s == t:
+            return True
+        else:
+            return False
 
 #test case
-if __name__ == "__main__":
-    s = "anagram"
-    t = "nagaram"
-    sol = Solution()
-    print(sol.isAnagram(s, t)) 
+s = "racecar"
+t = "carrace"
+sol = Solution()
+print(sol.isAnagram(s,t))
