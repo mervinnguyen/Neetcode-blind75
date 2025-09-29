@@ -13,3 +13,9 @@ class Solution:
             #add integer to hashmap
             hashmap[i] = 1 #add key-value pair to hashmap for integer in array
         return False
+
+#Explanation:
+# 1) Create emtpty hashmap
+# 2) Iterate through each num in nums
+# 3) If the num is in hashmap, return True. If not, add 1 to hashmap
+# 4) Iterate through all nums, if not duplicates found, return False
