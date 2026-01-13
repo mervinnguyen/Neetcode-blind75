@@ -10,9 +10,3 @@ class Solution:
             return True
         else:
             return False
-
-#test case
-s = "racecar"
-t = "carrace"
-sol = Solution()
-print(sol.isAnagram(s,t))
