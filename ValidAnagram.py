@@ -4,9 +4,6 @@
 
 class Solution: 
     def isAnagram(self, s: str, t: str) -> bool:
-        #hash table for strings s and t
-        hashS = {}
-        hashT = {}
         s = sorted(s)
         t = sorted(t)
         if s == t:
