@@ -19,5 +19,17 @@
 # Output: [[""]]
 
 class Solution:
-    def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
+    def groupAnagrams(self, strs: list[str]) -> list[list[str]]:
+        dict = {}
+        for s in strs:
+            sortedS = ''.join(sorted(s))
+            if sortedS not in dict:
+                dict[sortedS] = []  #create an empty list for anagram key
+            dict[sortedS].append(s)  #append the original string to the dictionary value corresponding to the anagram
         
+        return list(dict.values())    #return the list of anagram groups as a list of lists
+    
+#test cases
+strs = ["act","pots","tops","cat","stop","hat"]
+sol = Solution()
+print(sol.groupAnagrams(strs))
