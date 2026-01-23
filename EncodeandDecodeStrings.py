@@ -5,6 +5,18 @@
 
 class Solution: 
     def encode(self, strs: List[str]) -> str:
+        if not strs:
+            return " "
+        sizes = []
+        for string in strs:
+            sizes.append(len(string))
+        result = " "
+        for size in sizes:
+            result = str(size) + ","
+        result += "#"
+        for s in strs:
+            result += s
+        return result
     
     def decode(self, strs: List[str]) -> str:
         
