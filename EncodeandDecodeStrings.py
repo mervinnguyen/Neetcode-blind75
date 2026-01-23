@@ -19,4 +19,24 @@ class Solution:
         return result
     
     def decode(self, strs: List[str]) -> str:
-        
+        if not s:
+            return []
+        sizes = []
+        result = []
+        i = 0
+
+        while s[i] != "#":
+            current = " "
+            while s[i] != ",":
+                current += s[i]
+                i += 1
+            sizes.append(int(current))
+            i += 1
+        i += 1  # skip the '#'
+        for size in sizes:
+            result.append(s[i:i + size])
+            i += size
+        return result
+    
+    
+    
