@@ -7,8 +7,9 @@ class Solution:
         right = len(heights) - 1
         result = 0
         while left < right:
+            #calculate the current area
             area = min(heights[left], heights[right]) * (right - left)
-            result = max(result, area)
+            result = max(result, area)  #set the result to the current max outcome
 
             if heights[left] <= heights[right]:
                 left += 1
