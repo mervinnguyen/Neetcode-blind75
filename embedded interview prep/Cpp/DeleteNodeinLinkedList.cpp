@@ -14,8 +14,6 @@
 
 using namespace std;
 
-//Input: [4, 5, 1, 9], node = 5
-
 //Approach:
 //If we have *node pointing to 5, we can:
 //  1) Set the current node's value to the next nodes value (result: [4, 1, 1, 9])
@@ -23,17 +21,16 @@ using namespace std;
 //  3) Set the next node of the current node to skip the next node (result: node -> next ->next (9))
 //  4) Delete the temporary node (result: [4, 1, 9])
 
-//define struct
 typedef struct Node {
-    int data;           //current value
-    struct Node *next;  //next node
+    int data;           
+    struct Node *next;  
 } ListNode;
 
 void delete_node(ListNode *node){
-    node -> data = node -> next -> data;    //copy data of next node into current node 
-    ListNode * temp = node -> next;         //create temp node that stores the next node
-    node -> next = node -> next -> next;    //skip next node
-    delete temp;                            //delete temp node
+    node -> data = node -> next -> data;    
+    ListNode * temp = node -> next;         
+    node -> next = node -> next -> next;    
+    delete temp;                            
 }
 
 int main(void) {
@@ -52,7 +49,6 @@ int main(void) {
     n4->data = 9; 
     n4->next = NULL;
 
-    // Print original list
     cout << "Original list: ";
     ListNode* curr = n1;
     while (curr) {
@@ -61,7 +57,6 @@ int main(void) {
     }
     cout << endl;
 
-    // Delete node with value 5 (n2)
     delete_node(n2);
 
     // Print modified list
@@ -73,10 +68,10 @@ int main(void) {
     }
     cout << endl;
 
-    // Free memory
     free(n1);
-    free(n2); // n2 now holds value 1, but is still allocated
-    free(n3); // n3 was deleted in delete_node, so don't double free
+    free(n2); 
+    free(n3); 
     free(n4);
+
     return 0;
 }
