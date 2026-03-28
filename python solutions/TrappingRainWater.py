@@ -1,17 +1,44 @@
-#You are given an array of non-negative integers height which represent and elevation map
-#Each value height[i] represents the height of a bar, which has a width of 1.
+"""Trapping Rain Water problem solution.
 
-#Return the maximum area of water that can be trapped between the bars.
+This module implements a solution to the classic "Trapping Rain Water" problem
+using a two-pointer approach to efficiently calculate the maximum water that
+can be trapped between elevation bars.
+"""
+
+from typing import List
+
 
 class Solution:
+    """Solution class for the Trapping Rain Water problem."""
+    
     def trap(self, height: List[int]) -> int:
-        #Two pointer approach
+        """Calculate the maximum area of water that can be trapped between bars.
+        
+        Uses a two-pointer approach with O(n) time complexity and O(1) space.
+        The algorithm maintains left and right pointers along with the maximum
+        heights seen from each side to determine water levels.
+        
+        Args:
+            height: List of non-negative integers representing bar heights,
+                   where each bar has width 1.
+        
+        Returns:
+            The maximum volume of water that can be trapped as an integer.
+        
+        Example:
+            >>> solution = Solution()
+            >>> solution.trap([0,1,0,2,1,0,1,3,2,1,2,1])
+            6
+        """
+        if not height or len(height) < 3:
+            return 0
+            
         left = 0
         right = len(height) - 1
-        #track leftMax and rightMax as the tallest walls seen
         leftMax = height[left]
         rightMax = height[right]
         result = 0
+        
         while left < right:
             if leftMax < rightMax:
                 left += 1
@@ -19,5 +46,7 @@ class Solution:
                 result += leftMax - height[left]
             else:
                 right -= 1
-                rightMax = max(rightMax, heigh[right])
+                rightMax = max(rightMax, height[right])
+                result += rightMax - height[right]
+                
         return result
