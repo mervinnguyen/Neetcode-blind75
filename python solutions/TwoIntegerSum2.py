@@ -1,19 +1,37 @@
-#Given an array of integers numbers that is sorted in non-decreasing order
-#Return the indices (1-indexed) of two numbers, [index1, index2], such that
-#they add up to a given target number target and index1 < index2.
-#Note that index1 and index2 cannot be equal, therefore you may not use the same element twice.
-#There will always be exactly one valid solution.
-#Your solution must use O(1) additional space.
+"""Two Integer Sum II - Input Array Is Sorted
 
-class Solution: 
+Given an array of integers sorted in non-decreasing order, find two numbers
+that add up to a target using two pointers with O(1) space complexity.
+"""
+
+class Solution:
+    """Solution class for finding two integers that sum to target in sorted array."""
+    
     def twoSum(self, numbers: list[int], target: int) -> list[int]:
-        #Start left pointer on the first index
-        #right pointer at the last index
-        #compare two values, if sum > target, decrement right pointer, if sum < target, decerement pointer
+        """Find two numbers in sorted array that add up to target.
+
+        Uses two pointers approach: start from both ends and move inward based on
+        current sum compared to target. Since array is sorted, if sum is too large,
+        move right pointer left; if sum is too small, move left pointer right.
+
+        Args:
+            numbers: Sorted array of integers in non-decreasing order.
+            target: Target sum value.
+
+        Returns:
+            List containing the two numbers that sum to target (not indices).
+            There is always exactly one valid solution.
+
+        Example:
+            >>> solution = Solution()
+            >>> solution.twoSum([2, 7, 11, 15], 9)
+            [2, 7]
+        """
         left = 0
         right = len(numbers) - 1
         result = []
-        while (left < right):
+        
+        while left < right:
             sum = numbers[left] + numbers[right]
 
             if sum == target:
@@ -25,6 +43,6 @@ class Solution:
             if sum < target:
                 left += 1
 
-#Test case
+# Test case
 solution = Solution()
-print(solution.twoSum([2,7,11,15], 9)) #[2,7]
+print(solution.twoSum([2,7,11,15], 9))  # [2,7]
