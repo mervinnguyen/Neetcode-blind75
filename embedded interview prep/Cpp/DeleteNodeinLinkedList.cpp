@@ -1,31 +1,37 @@
-//Delete Node in a Linked List
-//Given only accesss to a node in a singly linked list (not the tail), delete that node.
-
-//ex1:
-//Input: head = [4, 5, 1, 9], node = 5
-//Output: [4, 1, 9]
-//Explanation: Copy the next node's value into the given node and skip the next node.
-
-//ex2:
-//Input: head = [4, 5, 1, 9], node = 1
-//Output: [4, 5, 9]
+/**
+ * @file DeleteNodeinLinkedList.cpp
+ * @brief Delete Node in a Linked List - Solution to delete a node when only given access to that node
+ * @author Author
+ * @date 2024-12-19
+ * @version 1.0.0
+ */
 
 #include <iostream>
 
 using namespace std;
 
-//Approach:
-//If we have *node pointing to 5, we can:
-//  1) Set the current node's value to the next nodes value (result: [4, 1, 1, 9])
-//  2) Create a temporary node that stores the next node 
-//  3) Set the next node of the current node to skip the next node (result: node -> next ->next (9))
-//  4) Delete the temporary node (result: [4, 1, 9])
-
+/**
+ * @brief Node structure for singly linked list
+ */
 typedef struct Node {
-    int data;           
-    struct Node *next;  
+    int data;           /**< Data stored in the node */
+    struct Node *next;  /**< Pointer to the next node in the list */
 } ListNode;
 
+/**
+ * @brief Delete a node in a singly linked list given only access to that node
+ * 
+ * This function implements the copy-and-skip technique:
+ * 1) Copy the next node's value into the current node
+ * 2) Store reference to the next node
+ * 3) Skip the next node by updating the current node's next pointer
+ * 4) Delete the stored next node
+ * 
+ * @param[in] node Pointer to the node to be deleted (must not be the tail node)
+ * 
+ * @note This approach only works if the node to delete is not the tail node
+ * @warning Assumes node and node->next are not NULL
+ */
 void delete_node(ListNode *node){
     node -> data = node -> next -> data;    
     ListNode * temp = node -> next;         
@@ -33,6 +39,10 @@ void delete_node(ListNode *node){
     delete temp;                            
 }
 
+/**
+ * @brief Main function demonstrating the delete node functionality
+ * @return 0 on successful execution
+ */
 int main(void) {
     // Create linked list: 4 -> 5 -> 1 -> 9
     ListNode* n1 = (ListNode*)malloc(sizeof(ListNode));
@@ -59,7 +69,6 @@ int main(void) {
 
     delete_node(n2);
 
-    // Print modified list
     cout << "After deleting node 5: ";
     curr = n1;
     while (curr) {
