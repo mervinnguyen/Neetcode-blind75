@@ -1,12 +1,4 @@
 /**
- * @file Interrupts.cpp
- * @brief Example of incorrect interrupt service routine (ISR) declaration and best practices for ISRs in embedded systems
- * @author Author
- * @date 2024-12-19
- * @version 1.0.0
- */
-
-/**
  * @brief Incorrect example of interrupt service routine implementation
  * @warning This function demonstrates multiple ISR violations:
  *          - ISRs cannot return a value (void only)
@@ -17,6 +9,7 @@
  * @return area Calculated area (INVALID - ISRs must return void)
  * @note This code serves as an educational example of what NOT to do in an ISR
  */
+
 __interrupt double compute_area(double radius){
     double area = PI * radius * radius;
     printf("\nArea = %f", area);

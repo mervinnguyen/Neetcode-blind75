@@ -1,22 +1,16 @@
 /**
  * @file LinkedListCycle.cpp
  * @brief Detects if a singly linked list contains a cycle using Floyd's Tortoise and Hare algorithm
- * @author Author
- * @date 2024-12-19
+ * @author Mervin
+ * @date 2026-03-28
  * @version 1.0.0
  */
 
-/**
- * @brief Provides a method to check for cycles in a linked list using Floyd's cycle detection algorithm
- */
 class Solution {
 public:
-    /**
-     * @brief Node structure for singly linked list
-     */
     typedef struct Node{
-        int data;           /**< Data stored in the node */
-        struct Node *next;  /**< Pointer to the next node in the list */
+        int data;           
+        struct Node *next; 
     } ListNode;
     
     /**
@@ -33,14 +27,13 @@ public:
         if (head == nullptr) {
             return false;
         }
-        ListNode *slow = head;  // Tortoise pointer - moves one step at a time
-        ListNode *fast = head;  // Hare pointer - moves two steps at a time
+        ListNode *slow = head;
+        ListNode *fast = head; 
         
         while (fast != nullptr && fast->next != nullptr) {
             slow = slow->next;
             fast = fast->next->next;
-            
-            // If pointers meet, cycle detected
+        
             if (slow == fast) {
                 return true;
             }

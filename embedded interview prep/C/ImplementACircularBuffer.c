@@ -1,8 +1,8 @@
 /**
  * @file ImplementACircularBuffer.c
  * @brief Circular buffer (ring buffer) implementation for fixed-size integer storage
- * @author Author
- * @date 2024-12-19
+ * @author Mervin Nguyen
+ * @date 2026-03-28
  * @version 1.0.0
  */
 
@@ -12,21 +12,13 @@
 
 #define BUFFER_SIZE 8
 
-/**
- * @brief Circular buffer structure for integer data storage
- */
 typedef struct circular_buffer{
-    int buffer[BUFFER_SIZE];  /**< Fixed-size buffer array */
-    int tail;                 /**< Read pointer */
-    int head;                 /**< Write pointer */
-    int count;                /**< Number of elements in buffer */
+    int buffer[BUFFER_SIZE];  
+    int tail;                
+    int head;           
+    int count;        
 } circular_buffer;
 
-/**
- * @brief Initialize a circular buffer to empty state
- * @param[out] cb Pointer to circular buffer structure
- * @return 0 on success
- */
 int init_circular_buffer(circular_buffer *cb){
     cb->tail = 0;
     cb->head = 0;
@@ -34,30 +26,14 @@ int init_circular_buffer(circular_buffer *cb){
     return 0;
 }
 
-/**
- * @brief Check if circular buffer is empty
- * @param[in] cb Pointer to circular buffer structure
- * @return true if buffer is empty, false otherwise
- */
 bool is_empty(circular_buffer *cb){
     return (cb->count == 0);
 }
 
-/**
- * @brief Check if circular buffer is full
- * @param[in] cb Pointer to circular buffer structure
- * @return true if buffer is full, false otherwise
- */
 bool is_full(circular_buffer *cb){
     return (cb->count == BUFFER_SIZE);
 }
 
-/**
- * @brief Push data into circular buffer
- * @param[in,out] cb Pointer to circular buffer structure
- * @param[in] data Integer data to push into buffer
- * @return 0 on success, -1 if buffer is full
- */
 int push(circular_buffer *cb, int data){
     if (is_full(cb)){
         return -1;
@@ -69,12 +45,6 @@ int push(circular_buffer *cb, int data){
     return 0;
 }
 
-/**
- * @brief Pop data from circular buffer
- * @param[in,out] cb Pointer to circular buffer structure
- * @param[out] data Pointer to store popped data
- * @return 0 on success, -1 if buffer is empty
- */
 int pop(circular_buffer *cb, int *data){
     if (is_empty(cb)){
         return -1;
@@ -86,10 +56,6 @@ int pop(circular_buffer *cb, int *data){
     return 0;
 }
 
-/**
- * @brief Main function demonstrating circular buffer usage
- * @return 0 on success
- */
 int main(void){
     circular_buffer *cb = malloc(sizeof(circular_buffer));
     int popped_value = 0;

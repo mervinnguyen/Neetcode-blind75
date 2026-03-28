@@ -1,8 +1,8 @@
 /**
  * @file PointerVsReferenceSwap.cpp
  * @brief Demonstrates pointer vs reference parameter passing with swap functions
- * @author Author
- * @date 2024-12-19
+ * @author Mervin Nguyen
+ * @date 2026-03-28
  * @version 1.0.0
  */
 
@@ -35,12 +35,6 @@ void swap_ref(int &c, int &d){
     d = temp;
 }
 
-/**
- * @brief Main function to demonstrate pointer and reference swapping
- * @return 0 on successful execution
- * @note Reads two integers, creates separate copies for each swap method,
- *       and displays results to compare the two approaches
- */
 int main(){
     int x, y;
     cout << "Please enter a value for x: ";

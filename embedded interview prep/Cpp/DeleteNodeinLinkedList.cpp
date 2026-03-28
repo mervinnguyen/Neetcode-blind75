@@ -1,8 +1,8 @@
 /**
  * @file DeleteNodeinLinkedList.cpp
  * @brief Delete Node in a Linked List - Solution to delete a node when only given access to that node
- * @author Author
- * @date 2024-12-19
+ * @author Mervin Nguyen
+ * @date 2026-03-28
  * @version 1.0.0
  */
 
@@ -10,12 +10,9 @@
 
 using namespace std;
 
-/**
- * @brief Node structure for singly linked list
- */
 typedef struct Node {
-    int data;           /**< Data stored in the node */
-    struct Node *next;  /**< Pointer to the next node in the list */
+    int data;          
+    struct Node *next; 
 } ListNode;
 
 /**
@@ -39,10 +36,6 @@ void delete_node(ListNode *node){
     delete temp;                            
 }
 
-/**
- * @brief Main function demonstrating the delete node functionality
- * @return 0 on successful execution
- */
 int main(void) {
     // Create linked list: 4 -> 5 -> 1 -> 9
     ListNode* n1 = (ListNode*)malloc(sizeof(ListNode));

@@ -1,9 +1,16 @@
 /**
  * @file NumberOf1Bits.cpp
  * @brief Implementation of Hamming weight calculation for 32-bit unsigned integers
- * @author Author
- * @date 2024-12-19
+ * @author Mervin Nguyen
+ * @date 2026-03-28
  * @version 1.0.0
+ * 
+ * Approach:
+ * - Iterate through all 32 bits of the integer.
+ * - For each bit, check if it is 1 using (n & 1).
+ * - Increment count for each 1 bit found.
+ * - Shift n right by 1 after each check.
+ * 
  */
 
 #include <iostream>
@@ -11,16 +18,6 @@
 
 using namespace std;
 
-/**
- * @brief Solution class for counting 1 bits in unsigned integers
- * 
- * @details
- * Approach:
- * - Iterate through all 32 bits of the integer.
- * - For each bit, check if it is 1 using (n & 1).
- * - Increment count for each 1 bit found.
- * - Shift n right by 1 after each check.
- */
 class Solution{
 public:
     /**

@@ -1,12 +1,4 @@
 /**
- * @file CodeExamples.cpp
- * @brief Collection of C/C++ code examples demonstrating various language features and behaviors
- * @author Author
- * @date 2024-12-19
- * @version 1.0.0
- */
-
-/**
  * @brief Demonstrates type promotion in C when adding unsigned and signed integers
  * 
  * When an unsigned int and a signed int are added, both are promoted to unsigned int.
@@ -20,8 +12,8 @@ void foo(void){
     (a+b > 6) ? puts("> 6") : puts("<=6");
 }
 
-unsigned int zero = 0;              /**< Zero value for bitwise complement demonstration */
-unsigned int compzero = 0xFFFF;     /**< 1's complement of zero (all bits set) */
+unsigned int zero = 0;             
+unsigned int compzero = 0xFFFF;   
 
 /**
  * @brief Demonstrates malloc(0) behavior
@@ -37,9 +29,9 @@ if ((ptr = (char*)malloc(0)) == NULL){
    puts("Got a valid pointer");
 }
 
-int a = 5;  /**< First operand for operator precedence demonstration */
-int b = 7;  /**< Second operand for operator precedence demonstration */
-int c;      /**< Result variable for operator precedence demonstration */
+int a = 5; 
+int b = 7;  
+int c;     
 
 /**
  * @brief Demonstrates a legal but confusing C construct: a+++b

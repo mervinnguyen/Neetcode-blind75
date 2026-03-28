@@ -1,8 +1,8 @@
 /**
  * @file SingleNumber.cpp
  * @brief Implementation of single number finder using XOR operation
- * @author Author
- * @date 2024-12-19
+ * @author Mervin Nguyen
+ * @date 2026-03-28
  * @version 1.0.0
  */
 
@@ -11,12 +11,6 @@
 
 using namespace std;
 
-/**
- * @brief Solution class for finding the single number in an array where every other number appears twice
- * 
- * Uses bitwise XOR property where A XOR A = 0 and A XOR 0 = A to cancel out duplicate numbers,
- * leaving only the unique number. Time Complexity: O(n), Space Complexity: O(1)
- */
 class Solution{
 public:
     /**

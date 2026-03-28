@@ -3,7 +3,7 @@
 doxygen_automate.py
 
 Walks a project directory, rewrites C/C++ files with proper Doxygen
-headers and cleaned-up inline comments using the Claude API,
+headers and Python files with Google-style docstrings using the Claude API,
 then commits each file individually via git.
 
 Usage:
@@ -21,9 +21,11 @@ import subprocess
 import anthropic
 
 # File extensions to process
-TARGET_EXTENSIONS = {".c", ".cpp", ".h", ".hpp"}
+CPP_EXTENSIONS    = {".c", ".cpp", ".h", ".hpp"}
+PY_EXTENSIONS     = {".py"}
+TARGET_EXTENSIONS = CPP_EXTENSIONS | PY_EXTENSIONS
 
-SYSTEM_PROMPT = """You are a senior embedded systems engineer. Your job is to rewrite C/C++ source files to use professional Doxygen-style comments.
+CPP_SYSTEM_PROMPT = """You are a senior embedded systems engineer. Your job is to rewrite C/C++ source files to use professional Doxygen-style comments.
 
 Rules:
 1. Add a @file Doxygen block at the very top (before includes) with @file, @brief, @author (use "Author"), @date (use today's date), @version (use 1.0.0)
@@ -34,13 +36,50 @@ Rules:
 6. Do NOT change any actual code — only modify or add comments
 7. Return ONLY the complete rewritten file contents with no explanation, no markdown fences, no preamble"""
 
+PY_SYSTEM_PROMPT = """You are a senior software engineer. Your job is to rewrite Python source files to use professional Google-style docstrings.
 
-def get_rewritten_file(client: anthropic.Anthropic, filename: str, content: str) -> str:
-    """Send file content to Claude and get back the Doxygen-annotated version."""
+Rules:
+1. Add a module-level docstring at the very top of the file (after any shebang line) with a one-line summary, a blank line, then a longer description if warranted
+2. Add a Google-style docstring to every function, method, and class with:
+   - A one-line summary
+   - Args: section listing each parameter with type and description
+   - Returns: section describing the return value and type
+   - Raises: section if the function raises any exceptions
+   - Example: section with a short usage example where helpful
+3. Remove redundant inline comments that just restate what the code obviously does (e.g., # increment i, # return result)
+4. Keep comments that explain WHY something is done, non-obvious logic, algorithm references, or complexity notes (e.g., # O(n) time, O(1) space — XOR cancels duplicates)
+5. Do NOT change any actual code — only modify or add comments and docstrings
+6. Return ONLY the complete rewritten file contents with no explanation, no markdown fences, no preamble
+
+Google-style docstring format reference:
+    def example(x: int, y: int) -> int:
+        \"\"\"One-line summary.
+
+        Longer description if needed.
+
+        Args:
+            x: Description of x.
+            y: Description of y.
+
+        Returns:
+            Description of the return value.
+
+        Raises:
+            ValueError: If x is negative.
+
+        Example:
+            >>> example(1, 2)
+            3
+        \"\"\""""
+
+
+def get_rewritten_file(client: anthropic.Anthropic, filename: str, content: str, is_python: bool) -> str:
+    """Send file content to Claude and get back the annotated version."""
+    system = PY_SYSTEM_PROMPT if is_python else CPP_SYSTEM_PROMPT
     message = client.messages.create(
         model="claude-sonnet-4-20250514",
         max_tokens=8096,
-        system=SYSTEM_PROMPT,
+        system=system,
         messages=[
             {
                 "role": "user",
@@ -51,11 +90,12 @@ def get_rewritten_file(client: anthropic.Anthropic, filename: str, content: str)
     return message.content[0].text
 
 
-def git_commit(filepath: str, repo_root: str) -> None:
+def git_commit(filepath: str, repo_root: str, is_python: bool) -> None:
     """Stage and commit a single file."""
     rel_path = os.path.relpath(filepath, repo_root)
     subprocess.run(["git", "add", rel_path], cwd=repo_root, check=True)
-    commit_msg = f"docs: add Doxygen comments to {rel_path}"
+    comment_type = "docstrings" if is_python else "Doxygen comments"
+    commit_msg = f"docs: add {comment_type} to {rel_path}"
     subprocess.run(["git", "commit", "-m", commit_msg], cwd=repo_root, check=True)
     print(f"  Committed: {commit_msg}")
 
@@ -75,17 +115,25 @@ def collect_files(project_path: str) -> list[str]:
     files = []
     for root, dirs, filenames in os.walk(project_path):
         # Skip hidden dirs and common non-source dirs
-        dirs[:] = [d for d in dirs if not d.startswith(".") and d not in {"build", "cmake-build-debug", "cmake-build-release", "__pycache__", "node_modules"}]
+        dirs[:] = [
+            d for d in dirs
+            if not d.startswith(".")
+            and d not in {"build", "cmake-build-debug", "cmake-build-release", "__pycache__", "node_modules"}
+        ]
         for fname in filenames:
+            # Skip this script itself
+            if fname == "doxygen_automate.py":
+                continue
             if os.path.splitext(fname)[1] in TARGET_EXTENSIONS:
                 files.append(os.path.join(root, fname))
     return sorted(files)
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Auto-add Doxygen comments and commit each file.")
+    parser = argparse.ArgumentParser(description="Auto-add Doxygen/docstring comments and commit each file.")
     parser.add_argument("--path", required=True, help="Path to your project directory")
     parser.add_argument("--dry-run", action="store_true", help="Preview files without writing or committing")
+    parser.add_argument("--only", choices=["cpp", "python"], help="Process only C/C++ or only Python files")
     args = parser.parse_args()
 
     project_path = os.path.abspath(args.path)
@@ -104,17 +152,30 @@ def main():
         sys.exit(1)
 
     client = anthropic.Anthropic(api_key=api_key)
-    files = collect_files(project_path)
+    all_files = collect_files(project_path)
+
+    # Filter by --only flag if provided
+    if args.only == "cpp":
+        files = [f for f in all_files if os.path.splitext(f)[1] in CPP_EXTENSIONS]
+    elif args.only == "python":
+        files = [f for f in all_files if os.path.splitext(f)[1] in PY_EXTENSIONS]
+    else:
+        files = all_files
 
     if not files:
-        print("No C/C++ source files found.")
+        print("No source files found.")
         sys.exit(0)
 
-    print(f"Found {len(files)} file(s) to process.\n")
+    cpp_count = sum(1 for f in files if os.path.splitext(f)[1] in CPP_EXTENSIONS)
+    py_count  = sum(1 for f in files if os.path.splitext(f)[1] in PY_EXTENSIONS)
+    print(f"Found {len(files)} file(s) to process — {cpp_count} C/C++, {py_count} Python.\n")
 
     for i, filepath in enumerate(files, 1):
+        ext = os.path.splitext(filepath)[1]
+        is_python = ext in PY_EXTENSIONS
         rel = os.path.relpath(filepath, project_path)
-        print(f"[{i}/{len(files)}] Processing: {rel}")
+        lang_tag = "Python" if is_python else "C/C++"
+        print(f"[{i}/{len(files)}] [{lang_tag}] Processing: {rel}")
 
         with open(filepath, "r", encoding="utf-8", errors="replace") as f:
             original = f.read()
@@ -124,7 +185,7 @@ def main():
             continue
 
         try:
-            rewritten = get_rewritten_file(client, os.path.basename(filepath), original)
+            rewritten = get_rewritten_file(client, os.path.basename(filepath), original, is_python)
         except Exception as e:
             print(f"  Claude API error: {e} — skipping file.\n")
             continue
@@ -134,7 +195,7 @@ def main():
         print(f"  Rewritten.")
 
         try:
-            git_commit(filepath, repo_root)
+            git_commit(filepath, repo_root, is_python)
         except subprocess.CalledProcessError as e:
             print(f"  Git error: {e} — file was rewritten but not committed.\n")
             continue

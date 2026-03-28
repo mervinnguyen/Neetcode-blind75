@@ -1,8 +1,8 @@
 /**
  * @file 3Sum.cpp
  * @brief Finds all unique triplets in an array that sum to zero (brute-force approach)
- * @author Author
- * @date 2024-12-19
+ * @author Mervin Nguyen
+ * @date 2026-03-28
  * @version 1.0.0
  */
 
@@ -13,9 +13,6 @@
 
 using namespace std;
 
-/**
- * @brief Provides a brute-force method to find all unique triplets that sum to zero
- */
 class Solution {
 public:
     /**
@@ -49,10 +46,6 @@ public:
     }
 };
 
-/**
- * @brief Main function demonstrating the 3Sum algorithm
- * @return Exit status code
- */
 int main() {
     Solution sol;
     vector<int> input_num = {-1, 0, 1, 2, -1, -4};

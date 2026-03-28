@@ -1,33 +1,19 @@
 /**
  * @file reverselinkedlist.c
  * @brief Reverse a singly linked list implementation
- * @author Author
- * @date 2024-12-19
+ * @author Mervin Nguyen
+ * @date 2026-03-28
  * @version 1.0.0
  */
 
 #include <stdio.h>
 #include <stdlib.h>
 
-/**
- * @struct Node
- * @brief Node structure for singly linked list
- */
 struct Node {
-    int data;           /**< Data stored in the node */
-    struct Node *next;  /**< Pointer to the next node in the list */
+    int data;          
+    struct Node *next;
 };
 
-/**
- * @brief Reverses a singly linked list in-place
- * 
- * Uses three-pointer technique to reverse the direction of all next pointers.
- * The algorithm maintains previous, current, and next pointers to safely
- * traverse and reverse the list without losing references.
- * 
- * @param[in] head Pointer to the head of the list to reverse
- * @return Pointer to the new head of the reversed list (previously the tail)
- */
 struct Node *reverse_linked_list(struct Node *head) {
     struct Node *prev = NULL;
     struct Node *curr = head;
@@ -42,14 +28,6 @@ struct Node *reverse_linked_list(struct Node *head) {
     return prev;
 }
 
-/**
- * @brief Main function demonstrating linked list reversal
- * 
- * Creates a simple 3-node linked list and reverses it.
- * 
- * @return Exit status code
- * @warning Memory allocated for nodes is not freed - potential memory leak
- */
 int main(void) {
     struct Node *head = malloc(sizeof(struct Node));
     struct Node *second = malloc(sizeof(struct Node));

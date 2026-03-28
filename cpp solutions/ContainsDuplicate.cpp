@@ -1,9 +1,15 @@
 /**
  * @file ContainsDuplicate.cpp
  * @brief Implementation of duplicate detection in integer arrays
- * @author Author
- * @date 2024-12-19
+ * @author Mervin Nguyen
+ * @date 2026-03-28
  * @version 1.0.0
+ * 
+ * Approach:
+ * 1. Sort the array in order.
+ * 2. Iterate through the array, comparing each element to the previous one.
+ * 3. If any two consecutive elements are equal, return true (duplicate found).
+ * 4. If no duplicates are found, return false.
  */
 
 #include <iostream>
@@ -12,16 +18,6 @@
 
 using namespace std; 
 
-/**
- * @brief Solution class for checking duplicates in integer arrays
- * 
- * @details
- * Approach:
- * 1. Sort the array in order.
- * 2. Iterate through the array, comparing each element to the previous one.
- * 3. If any two consecutive elements are equal, return true (duplicate found).
- * 4. If no duplicates are found, return false.
- */
 class Solution {
 public:
     /**
@@ -41,10 +37,6 @@ public:
     }
 };
 
-/**
- * @brief Main function to test the Solution class
- * @return 0 on successful execution
- */
 int main(){
     Solution sol;
     vector<int> nums = {1, 4, 3, 2};

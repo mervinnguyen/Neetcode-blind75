@@ -1,9 +1,17 @@
 /**
  * @file MinStack.cpp
  * @brief Stack supporting push, pop, top, and retrieving the minimum element in O(1) time
- * @author Author
+ * @author Mervin Nguyen
  * @date 2024-12-19
  * @version 1.0.0
+ * 
+ * Approach:
+ * - Use two stacks: one for all values (main_stack), one for the minimum at each level (min_stack).
+ * - On push, add value to main_stack and the new minimum to min_stack.
+ * - On pop, remove from both stacks.
+ * - top() returns the top of main_stack.
+ * - getMin() returns the top of min_stack.
+ * 
  */
 
 #include <iostream>
@@ -12,18 +20,6 @@
 
 using namespace std;
 
-/**
- * @class MinStack
- * @brief Stack supporting push, pop, top, and retrieving the minimum element in O(1) time.
- *
- * @details
- * Approach:
- * - Use two stacks: one for all values (main_stack), one for the minimum at each level (min_stack).
- * - On push, add value to main_stack and the new minimum to min_stack.
- * - On pop, remove from both stacks.
- * - top() returns the top of main_stack.
- * - getMin() returns the top of min_stack.
- */
 class MinStack {
 public:
     stack<int> main_stack; /**< Stack containing all pushed values */
