@@ -1,21 +1,37 @@
-#Title: Contains Duplicate
+"""Contains Duplicate
 
-# Given an integer array nums, return true if any value appears more than once in the array, otherwise return false. 
+Given an integer array nums, return true if any value appears more than once 
+in the array, otherwise return false.
+"""
+
+from typing import List
+
 
 class Solution:
-    #function to track duplicates
-    #paramenter: nums: List[int] -> true or false
-    def hasDuplicate(self, nums: List[int]) -> bool: 
+    """Solution class for the Contains Duplicate problem."""
+    
+    def hasDuplicate(self, nums: List[int]) -> bool:
+        """Check if any value appears more than once in the array.
+        
+        Uses a hash map to track seen values while iterating through the array.
+        Returns True as soon as a duplicate is found for O(1) early termination.
+        
+        Args:
+            nums: List of integers to check for duplicates.
+            
+        Returns:
+            True if any value appears more than once, False otherwise.
+            
+        Example:
+            >>> solution = Solution()
+            >>> solution.hasDuplicate([1, 2, 3, 1])
+            True
+            >>> solution.hasDuplicate([1, 2, 3, 4])
+            False
+        """
         hashmap = {}
         for i in nums:
             if i in hashmap:
-                return True    #iterate through each integer in nums, if the integer is in hashmap, return 
-            #add integer to hashmap
-            hashmap[i] = 1 #add key-value pair to hashmap for integer in array
+                return True
+            hashmap[i] = 1
         return False
-
-#Explanation:
-# 1) Create emtpty hashmap
-# 2) Iterate through each num in nums
-# 3) If the num is in hashmap, return True. If not, add 1 to hashmap
-# 4) Iterate through all nums, if not duplicates found, return False
