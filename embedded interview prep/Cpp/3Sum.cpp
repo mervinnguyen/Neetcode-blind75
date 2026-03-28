@@ -1,13 +1,9 @@
 /**
  * @file 3Sum.cpp
- * @brief Finds all unique triplets in an array that sum to zero (brute-force approach).
- *
- * Uses a set to avoid duplicate triplets and triple-nested loops to check all combinations.
- */
-
-/**
- * @class Solution
- * @brief Provides a brute-force method to find all unique triplets that sum to zero.
+ * @brief Finds all unique triplets in an array that sum to zero (brute-force approach)
+ * @author Author
+ * @date 2024-12-19
+ * @version 1.0.0
  */
 
 #include <iostream>
@@ -16,13 +12,22 @@
 #include <set>
 
 using namespace std;
+
+/**
+ * @brief Provides a brute-force method to find all unique triplets that sum to zero
+ */
 class Solution {
 public:
     /**
-     * @brief Returns all unique triplets in the array that sum to zero.
-     *
-     * @param nums Reference to the input vector of integers.
-     * @return Vector of unique triplets that sum to zero.
+     * @brief Returns all unique triplets in the array that sum to zero
+     * 
+     * Uses a brute-force approach with triple-nested loops and a set to ensure uniqueness.
+     * The input array is sorted first to enable consistent triplet ordering.
+     * Time complexity: O(n³ + n log n), Space complexity: O(n) for the set.
+     * 
+     * @param[in] nums Reference to the input vector of integers
+     * @return Vector of unique triplets that sum to zero
+     * @note Array is sorted in-place to ensure consistent triplet ordering
      */
     vector<vector<int>> threeSum(vector<int> &nums) {
         set<vector<int>> set;
@@ -44,6 +49,10 @@ public:
     }
 };
 
+/**
+ * @brief Main function demonstrating the 3Sum algorithm
+ * @return Exit status code
+ */
 int main() {
     Solution sol;
     vector<int> input_num = {-1, 0, 1, 2, -1, -4};
