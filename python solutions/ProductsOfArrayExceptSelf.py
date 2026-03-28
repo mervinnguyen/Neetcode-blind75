@@ -1,20 +1,42 @@
-#Given an array nums, return an array output where output[i] is the product of all the elements of nums except nums[i].
-#Each product is guaranteed to fit in a 32-bit integer.
-#Follow-up: Could you solve it in O(n) time without using the division operation?
+"""Products of Array Except Self solution.
+
+This module implements a solution to find the product of all elements in an array
+except the element at each index. The problem requires O(n) time complexity
+without using division operations.
+"""
 
 from typing import List
 
 
 class Solution:
+    """Solution class for computing products of array elements except self."""
+
     def productExceptSelf(self, nums: List[int]) -> List[int]:
-        n = len(nums)   #get the length of the input array
-        res = [0]*n     #create a result array to store product values with n length
+        """Return array where output[i] is product of all elements except nums[i].
+
+        For each position i, calculates the product of all other elements in the array.
+        Uses a brute force approach with O(n²) time complexity.
+
+        Args:
+            nums: List of integers where each product fits in 32-bit integer.
+
+        Returns:
+            List of integers where each element is the product of all elements
+            in nums except the element at the corresponding index.
+
+        Example:
+            >>> solution = Solution()
+            >>> solution.productExceptSelf([1, 2, 3, 4])
+            [24, 12, 8, 6]
+        """
+        n = len(nums)
+        res = [0] * n
 
         for i in range(n):
-            prod = 1    #initialize product variable to 1
+            prod = 1
             for j in range(n):
                 if i != j:
                     prod *= nums[j]
-            res[i] = prod   #store the product value in the result array at index i
+            res[i] = prod
         
         return res
