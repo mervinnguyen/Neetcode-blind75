@@ -34,4 +34,16 @@ if ((ptr = (char*)malloc(0)) == NULL){
    puts("Got a valid pointer");
 }
 
+/**
+ * @brief Demonstrates a legal but confusing C construct: a+++b
+ *
+ * This is parsed as (a++) + b. The value of a is used, then incremented after the addition.
+ *
+ * Example:
+ * int a = 5, b = 7, c;
+ * c = a+++b; // c = 12, a becomes 6 after the statement
+ */
+int a = 5, b = 7, c;
+c = a+++b;
+
 
