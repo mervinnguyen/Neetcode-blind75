@@ -1,20 +1,23 @@
-//Contains Duplicate
-//Given an integer array nums, return true if any value appears more than once in the array, otherwise return false.
-//Ex. Input: nums = [1,2,3,3]
-//Output: true
+/**
+ * @class Solution
+ * @brief Checks for duplicates in an integer array.
+ *
+ * @details
+ * Approach:
+ * 1. Sort the array in order.
+ * 2. Iterate through the array, comparing each element to the previous one.
+ * 3. If any two consecutive elements are equal, return true (duplicate found).
+ * 4. If no duplicates are found, return false.
+ */
 
-//Ex 2. Input: nums = [1,2,3,4]
-//Output: false
+#include <iostream>
+#include <vector>
+#include <algorithm>
 #include <iostream>
 #include <vector>
 #include <algorithm>
 
 using namespace std; 
-
-//Brute force:
-//1) Sort array in order
-//2) Iterate using a ranged-based for loop 
-//3) During each iteration compare the current index with last index, if they are equal, return true, else return false.
 class Solution {
 public:
     bool hasDuplicate(vector<int>& nums) {
@@ -29,9 +32,9 @@ public:
 };
 
 int main(){
-    Solution sol;   //create object sol to Solution       
-    vector<int>nums = {1, 4, 3, 2};
+    Solution sol;
+    vector<int> nums = {1, 4, 3, 2};
     bool result = sol.hasDuplicate(nums);
-    cout << (result ? "true" : "false") << endl;        //print true if true, else print false
+    cout << (result ? "true" : "false") << endl;
     return 0;
 }
