@@ -1,20 +1,32 @@
+/**
+ * @file strCopy.c
+ * @brief Implements a simple string copy function for null-terminated strings.
+ *
+ * Demonstrates how to copy a C string from source to destination using pointer arithmetic.
+ */
+
+/**
+ * @brief Copies a null-terminated string from source to destination.
+ *
+ * @param s Pointer to the source string (null-terminated).
+ * @param d Pointer to the destination buffer (must be large enough).
+ */
+
 #include <stdio.h>
 
-//Implement strCopy function
-void str_copy(char *s, char *d){     //takes inputs null-terminated string s and string d, copies string s to string d
-    while(*s != '\0'){  //while current character of s is not null-terminated   
-        *d = *s;        //add current character to d
-        s++;            //increment s
-        d++;            //increment d
+void str_copy(char *s, char *d) {
+    while (*s != '\0') {
+        *d = *s;
+        s++;
+        d++;
     }
-    *d = '\0';      //null-terminate string d at the end
-    return;
+    *d = '\0';
 }
 
-int main(void){
-    char s[8] = "ABCDEFG";       //define string s in a stored array
-    char d[8];                   //define string d as an empty array of size 7 (if we define it as anything less than 7, we receive a buffer overflow)
-    str_copy(s, d);               //call function
-    printf("%s \n", d);          //print out destination d
+int main(void) {
+    char s[8] = "ABCDEFG";
+    char d[8]; // destination buffer must be at least as large as source + null terminator
+    str_copy(s, d);
+    printf("%s\n", d);
     return 0;
 }
