@@ -1,4 +1,18 @@
 /**
+ * @file MinStack.cpp
+ * @brief Stack supporting push, pop, top, and retrieving the minimum element in O(1) time
+ * @author Author
+ * @date 2024-12-19
+ * @version 1.0.0
+ */
+
+#include <iostream>
+#include <stack>
+#include <algorithm>
+
+using namespace std;
+
+/**
  * @class MinStack
  * @brief Stack supporting push, pop, top, and retrieving the minimum element in O(1) time.
  *
@@ -10,20 +24,23 @@
  * - top() returns the top of main_stack.
  * - getMin() returns the top of min_stack.
  */
-
-#include <iostream>
-#include <stack>
-#include <algorithm>
-
-using namespace std;
 class MinStack {
 public:
-    stack<int> main_stack;
-    stack<int> min_stack;
+    stack<int> main_stack; /**< Stack containing all pushed values */
+    stack<int> min_stack;  /**< Stack containing minimum value at each level */
 
-    /*default constructor for MinStack class*/
+    /**
+     * @brief Default constructor for MinStack class
+     */
     MinStack() {}
     
+    /**
+     * @brief Pushes a value onto the stack
+     * @param[in] val Value to push onto the stack
+     * 
+     * @note Maintains the minimum value at each level by pushing the current minimum
+     *       (either the new value or the previous minimum) onto min_stack
+     */
     void push(int val){
         main_stack.push(val);
         if (min_stack.empty()){
@@ -34,28 +51,45 @@ public:
         }   
     }
 
+    /**
+     * @brief Removes the top element from the stack
+     * 
+     * @note Pops from both stacks to maintain synchronization
+     */
     void pop(){
         main_stack.pop();
         min_stack.pop();
     }
 
+    /**
+     * @brief Returns the top element of the stack
+     * @return The top element value
+     */
     int top(){
         return main_stack.top();
     }
 
+    /**
+     * @brief Returns the minimum element in the stack
+     * @return The minimum element value in O(1) time
+     */
     int getMin(){
         return min_stack.top();
     }
 };
 
+/**
+ * @brief Main function demonstrating MinStack functionality
+ * @return Exit status code
+ */
 int main(){
     MinStack stack; 
     stack.push(1);
     stack.push(2);
-    cout << "Current element top of the stack is: " << stack.top() << endl;     //2
-    cout << "Current min stack is: " << stack.getMin() << endl;                 //1
+    cout << "Current element top of the stack is: " << stack.top() << endl;
+    cout << "Current min stack is: " << stack.getMin() << endl;
     stack.pop();
-    cout << "Current element top of the stack is: " << stack.top() << endl;     //1
-    cout << "Current min element of stack is: " << stack.getMin() << endl;      //1
+    cout << "Current element top of the stack is: " << stack.top() << endl;
+    cout << "Current min element of stack is: " << stack.getMin() << endl;
     return 0;
 }
