@@ -1,37 +1,46 @@
-//Pointer vs Reference Swap
-//Implement two functions that swap the values of two integers using different parameter-passing mechanisms in C++.
-
-//void swap_ptr(int *a, int *b);
-//swaps the valyes pointed to by a and b using pointers
-
-//void swap_ref(int &a, int &b);
-//swaps the values of a and b using references.
-
-//the main() function will:
-// 1) read two 32-bit signed integers from std input
-// 2) Call swap_ptr using one copy of the input values
-// 3) call swap_ref using a separate fresh copy of the same input values
-// 4) print the results after each swap
-
-//You only need to implement the two swap functions
+/**
+ * @file PointerVsReferenceSwap.cpp
+ * @brief Demonstrates pointer vs reference parameter passing with swap functions
+ * @author Author
+ * @date 2024-12-19
+ * @version 1.0.0
+ */
 
 #include <iostream>
 using namespace std;
 
+/**
+ * @brief Swaps the values pointed to by two integer pointers
+ * @param[in,out] a Pointer to first integer to swap
+ * @param[in,out] b Pointer to second integer to swap
+ * @note Uses pointer dereferencing to access and modify values
+ */
 void swap_ptr(int *a, int *b){
     int i = 0;
-    int *temp = &i;              //set a temp pointer to store temp for swapping
-    *temp = *a;                  //store the value pointing at a into temp address
-    *a = *b;                     //store value pointing at b into a
-    *b = *temp;                  //store value that we previously stored into temp back into b
+    int *temp = &i;
+    *temp = *a;
+    *a = *b;
+    *b = *temp;
 }
 
+/**
+ * @brief Swaps the values of two integers using reference parameters
+ * @param[in,out] c Reference to first integer to swap
+ * @param[in,out] d Reference to second integer to swap
+ * @note References provide direct access to the original variables
+ */
 void swap_ref(int &c, int &d){
     int temp = c;
     c = d;
     d = temp;
 }
 
+/**
+ * @brief Main function to demonstrate pointer and reference swapping
+ * @return 0 on successful execution
+ * @note Reads two integers, creates separate copies for each swap method,
+ *       and displays results to compare the two approaches
+ */
 int main(){
     int x, y;
     cout << "Please enter a value for x: ";
