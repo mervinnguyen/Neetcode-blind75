@@ -1,4 +1,12 @@
 /**
+ * @file DataDeclarations.c
+ * @brief Demonstrates various data type declarations and pointer usage patterns
+ * @author Author
+ * @date 2024-12-19
+ * @version 1.0.0
+ */
+
+/**
  * @brief Integer variable declaration.
  */
 int a = 0;
@@ -37,4 +45,3 @@ int (*funcPtr)(int);
  * @brief Array of 10 pointers to functions that take an integer argument and return an integer.
  */
 int (*funcPtrArr[10])(int);
-
