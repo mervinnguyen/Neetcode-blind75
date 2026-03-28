@@ -1,22 +1,44 @@
-#You are given a 9 x 9 sudoku board. A sudoku board is valid if the following rules are followed.
-#1. Each row ust contain the digits 1-9 without duplicates
-#2. Each column must contain the digits 1-9 without duplicates.
-#3. Each of the nine 3x3 sub-boxes of the grid must contain the digits 1-9 without duplicates
-#Return true if the sudoku board ius valid, otherwise return false. 
+"""Sudoku validator that checks if a 9x9 board follows valid sudoku rules.
+
+This module contains a solution to validate a partially filled 9x9 sudoku board
+according to standard sudoku rules: each row, column, and 3x3 sub-box must
+contain unique digits 1-9 (empty cells represented by '.').
+"""
+
 
 class Solution:
+    """Solution class for validating sudoku boards."""
+    
     def isValidSudoku(self, board: list[list[str]]) -> bool:
-        #Check each row and make sure it contains 1-9 without duplicates
+        """Check if a sudoku board is valid according to sudoku rules.
+
+        Args:
+            board: A 9x9 grid represented as a list of lists, where each cell
+                  contains either a digit '1'-'9' or '.' for empty cells.
+
+        Returns:
+            True if the board is valid, False otherwise.
+
+        Example:
+            >>> solution = Solution()
+            >>> board = [["5","3",".",".","7",".",".",".","."],
+            ...          ["6",".",".","1","9","5",".",".","."],
+            ...          # ... rest of valid board
+            ...         ]
+            >>> solution.isValidSudoku(board)
+            True
+        """
+        # Check each row for duplicates
         for row in range(9):
             seen = set()
             for i in range(9):
                 if board[row][i] == ".":
                     continue
                 if board[row][i] in seen:
-                    return False        # return false if there are duplicates from 1-9
+                    return False
                 seen.add(board[row][i])
         
-        #Check each column
+        # Check each column for duplicates
         for column in range(9):
             seen = set()
             for i in range(9):
@@ -26,10 +48,12 @@ class Solution:
                     return False
                 seen.add(board[i][column])
         
+        # Check each 3x3 sub-box for duplicates
         for square in range(9):
             seen = set()
             for i in range(3):
                 for j in range(3):
+                    # Map square index to row/col coordinates
                     row = (square // 3) * 3 + i
                     col = (square % 3) * 3 + j
                     if board[row][col] == ".":
@@ -38,8 +62,9 @@ class Solution:
                         return False
                     seen.add(board[row][col])
         return True
-    
-    #Create test cases
+
+
+# Test cases
 board1 = [["5","3",".",".","7",".",".",".","."],
           ["6",".",".","1","9","5",".",".","."],
           [".","9","8",".",".",".",".","6","."],    
@@ -61,6 +86,5 @@ board2 = [["8","3",".",".","7",".",".",".","."],
                 [".",".",".",".","8",".",".","7","9"]]
 
 solution = Solution()
-print(solution.isValidSudoku(board1))  #Expected output: True
-print(solution.isValidSudoku(board2))  #Expected output: False
-        
+print(solution.isValidSudoku(board1))
+print(solution.isValidSudoku(board2))
