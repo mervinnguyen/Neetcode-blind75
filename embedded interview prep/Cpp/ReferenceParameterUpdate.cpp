@@ -1,26 +1,36 @@
-//Refernce Parameter Update
-//Write a function named update that takes an integer x by reference and integer delta by value.
-//The function must update x by adding delta to it.
-//In main(), read the input values, call the function, and print the updated value x.
+/**
+ * @file ReferenceParameterUpdate.cpp
+ * @brief Program demonstrating reference parameter passing to update integer values
+ * @author Author
+ * @date 2024-12-19
+ * @version 1.0.0
+ */
 
-//ex
-//Input: 10 4
-//Output: 14
 #include <iostream>
-#include <cstdint>  //allows for integer types (uint32_t, uint64_t, uint8_t, etc. )
+#include <cstdint>
 using namespace std;
 
+/**
+ * @brief Updates an integer value by adding a delta value
+ * @param[in,out] x The integer to be updated (passed by reference)
+ * @param[in] delta The value to add to x
+ * @note Function modifies the original variable through reference parameter
+ */
 void update(int32_t &x, int32_t delta){
-    //implement logic here
     x += delta;
 }
 
+/**
+ * @brief Main function that reads input values, calls update function, and prints result
+ * @return 0 on successful execution
+ * @note Example: Input "10 4" produces Output "14"
+ */
 int main(){
-    int32_t x = 0, delta = 0;   //mental note: cannot bind reference values with a literal integer, can only bind with variables
+    int32_t x = 0, delta = 0;
     cin >> x >> delta;
 
     update(x, delta);
 
-    cout << x;      //Print updated value
+    cout << x;
     return 0;
 }
