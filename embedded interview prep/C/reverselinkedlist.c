@@ -1,44 +1,53 @@
-//reverse a linked list 
-//ex.
-// A -> B -> C -> D -> NULL
-// D -> C -> B -> A -> NULL
-#include <stdio.h>      //printf and scanf
-#include <stdlib.h>     //heap allocated memory (malloc)
+/**
+ * @file reverselinkedlist.c
+ * @brief Reverse a singly linked list in-place.
+ *
+ * Demonstrates how to reverse a singly linked list by iteratively
+ * changing the direction of the next pointers. Uses three pointers:
+ * previous, current, and next, to traverse and reverse the list efficiently.
+ */
 
-//create our struct for linked list
+/**
+ * @struct Node
+ * @brief Node structure for singly linked list.
+ */
+
+#include <stdio.h>
+#include <stdlib.h>
 struct Node {
     int data;
-    struct Node *next;      //next node
-};  //mental note: struct Node should only contain data and pointer to next node
+    struct Node *next;
+};
 
-struct Node *reverse_linked_list(struct Node *head){      //take head as the current node being traversed
-    //start from A as the head 
+/**
+ * @brief Reverses a singly linked list in-place.
+ *
+ * @param head Pointer to the head of the list.
+ * @return Pointer to the new head of the reversed list.
+ */
+struct Node *reverse_linked_list(struct Node *head) {
     struct Node *prev = NULL;
-    struct Node *curr = head;   //set the input head node pointer to the current being processed
-    struct Node *next = NULL;   //set next node as empty
-
-    while (curr != NULL){
-        next = curr->next;      //store the next node of current and save into next
-        curr->next = prev;      //reverse the pointer
-        prev = curr;            //move previous forward
-        curr = next;            //move curr forward
+    struct Node *curr = head;
+    struct Node *next = NULL;
+    while (curr != NULL) {
+        next = curr->next;
+        curr->next = prev;
+        prev = curr;
+        curr = next;
     }
     return prev;
 }
 
-int main(void){
+int main(void) {
     struct Node *head = malloc(sizeof(struct Node));
     struct Node *second = malloc(sizeof(struct Node));
     struct Node *third = malloc(sizeof(struct Node));
-    
+
     head->data = 1;
     second->data = 1;
-    third -> data = 1;
-
+    third->data = 1;
 
     head = reverse_linked_list(head);
-
     printf("%d -> ", head->data);
-
     return 0;
 }
