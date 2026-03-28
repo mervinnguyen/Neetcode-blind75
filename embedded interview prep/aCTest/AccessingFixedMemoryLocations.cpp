@@ -1,15 +1,19 @@
-//Accessing Fixed memory locations
-//Embedded Systems are often characterized by requiring the programmer to access a specific memory location. On a certain project, it is required to set an integer variable at the absolute address 0x67a9 to the value 0xaa55.
-//The compiler is a pure ANSI compiler. Write code to accomplish this task.
+/**
+ * @brief Access a fixed memory location and set its value.
+ *
+ * Demonstrates assigning a pointer to an absolute address (0x67a9) and setting the value at that address to 0xaa55.
+ * Common in embedded systems for direct hardware or memory-mapped register access.
+ */
 
 #include <iostream>
 
-using namespace std;        //export standard library for I/O
+using namespace std;
+
 int main(){
-    int *ptr;       //declare a pointer to integer in memory
-    ptr = (int *) 0x67a9;       //assign address of integer to 0x67a9
-    cout << "The current address of int is: " << ptr << endl;   //print current adress
-    *ptr = 0xaa55;              //set value of the the integer to 0xaa55
+    int *ptr;
+    ptr = (int*)0x67a9;
+    cout << "The current address of int is: " << ptr << endl;
+    *ptr = 0xaa55;
     cout << "The current value at ptr is: " << *ptr << endl;
     return 0;
 }   
