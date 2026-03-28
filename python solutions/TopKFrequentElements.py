@@ -1,24 +1,31 @@
-#Given an integer array nums and an integer k, return the k most frequent elements
-#within the array
+"""Find the k most frequent elements in an array.
 
-#Example 1:
-#Input: nums = [1,2,2,3,3,3], k =2
-#Output: [2,3]
+This module provides a solution to find the k most frequent elements
+in an integer array using frequency counting and sorting.
+"""
 
 class Solution:
     def topKFrequent(self, nums: list[int], k: int) -> list[int]:
-    #Count the frequency of each indice in the list and increment as the number appears
+        """Return the k most frequent elements from the array.
 
-    #Hashmap to keep track of the frequency of each number
+        Args:
+            nums: List of integers to analyze.
+            k: Number of most frequent elements to return.
+
+        Returns:
+            List of the k most frequent elements in descending order of frequency.
+
+        Example:
+            >>> s = Solution()
+            >>> s.topKFrequent([1,2,2,3,3,3], 2)
+            [3, 2]
+        """
         frequency = {}
 
-        #iterate through each index of num and the frequency
         for n in nums:
             frequency[n] = frequency.get(n, 0) + 1
         
-        #Now that frequency = {1:1, 2:2, 3:3}
-
-        #Sort in array in this order (frequency, nums)
+        # Create array of (frequency, number) pairs for sorting
         array = []
         for nums, freq in frequency.items():
             array.append((freq, nums))
@@ -32,6 +39,6 @@ class Solution:
         
         return result
 
-#test case
+# Test case
 s = Solution()
 print(s.topKFrequent([1,1,1,2,2,3], 2))
