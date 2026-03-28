@@ -1,34 +1,43 @@
-//Read-only sensordata reference
-//You are given a struct sensor_data containing three integer fields: x, y, z
-//You are also given a global pointer : const int *ptr = null ptr;
-//Write a function print_data that:
-//Accepts a SensorData object without copying it
-//Enforces read-only access at compile time
-//Ensure that attempting to modify the object inside the function results in compilation error
-//Prints the values in the format: x y z (single line, space)
-//Stores the address of x in ptr without violating const-correctness
-//You must write only the correct function paraemter and implementation
-//Input: 3 4 5
+/**
+ * @file ReadOnlySensorData.cpp
+ * @brief Demonstrates read-only sensor data reference handling with const-correctness
+ * @author Author
+ * @date 2024-12-19
+ * @version 1.0.0
+ */
 
 #include <iostream>
 using namespace std;
 
+/**< Global pointer to store const reference to sensor data x-coordinate */
 const int *ptr = nullptr;
 
+/**
+ * @brief Structure representing 3D sensor data coordinates
+ */
 typedef struct SensorData{
-    int x;
-    int y;
-    int z;
+    int x; /**< X-coordinate sensor reading */
+    int y; /**< Y-coordinate sensor reading */
+    int z; /**< Z-coordinate sensor reading */
 }sensor_data;
 
+/**
+ * @brief Prints sensor data values while enforcing read-only access
+ * @param[in] sd Constant reference to sensor data structure (prevents copying and modification)
+ * @note Function enforces compile-time read-only access through const reference
+ * @note Stores address of x-coordinate in global ptr while maintaining const-correctness
+ */
 void print_data(const sensor_data &sd){
 
     cout << sd.x << " " << sd.y << " " << sd.z << "\n";
 
-    //store address of x safely 
     ptr = &sd.x;
 }
 
+/**
+ * @brief Main function demonstrating sensor data input and processing
+ * @return Program exit status
+ */
 int main(){
     sensor_data sd;
     cin >> sd.x >> sd.y >> sd.z;
