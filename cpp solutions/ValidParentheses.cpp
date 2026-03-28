@@ -1,7 +1,20 @@
 /**
- * @class Solution
- * @brief Checks if a string of brackets is valid.
- *
+ * @file ValidParentheses.cpp
+ * @brief Implementation of a bracket validation algorithm using stack data structure
+ * @author Author
+ * @date 2024-12-19
+ * @version 1.0.0
+ */
+
+#include <iostream>
+#include <stack>
+#include <string>
+
+using namespace std;
+
+/**
+ * @brief Solution class for bracket validation problems
+ * 
  * @details
  * Approach:
  * - Use a stack to store opening brackets.
@@ -11,14 +24,16 @@
  * - If not matching or stack is empty, return false.
  * - At the end, the stack should be empty for a valid string.
  */
-
-#include <iostream>
-#include <stack>
-#include <string>
-
-using namespace std;
 class Solution{
 public: 
+    /**
+     * @brief Validates if a string containing brackets is properly balanced
+     * 
+     * @param[in] s Input string containing brackets: '(', ')', '[', ']', '{', '}'
+     * @return true if brackets are properly balanced and nested, false otherwise
+     * 
+     * @note Time complexity: O(n), Space complexity: O(n) where n is string length
+     */
     bool isValid(string s){
         stack<char> stack;      
         for (int i = 0; i < s.size(); i++){    
@@ -40,6 +55,11 @@ public:
     } 
 };
 
+/**
+ * @brief Main function to demonstrate bracket validation
+ * 
+ * @return 0 on successful execution
+ */
 int main(){
     Solution sol;
     string s = "{([])}";
