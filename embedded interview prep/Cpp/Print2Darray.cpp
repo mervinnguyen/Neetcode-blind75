@@ -1,23 +1,29 @@
-//Print a 2D array
-//input: {{1,2,3}, {4,5,6}, {7,8,9}}
-//
+/**
+ * @file Print2Darray.cpp
+ * @brief Program to print a 2D array in matrix format
+ * @author Author
+ * @date 2024-12-19
+ * @version 1.0.0
+ */
 
 #include <iostream>
 
-//implement function to print the 2D array
-
+/**
+ * @brief Main function that demonstrates 2D array printing
+ * @return 0 on successful execution
+ */
 int main(){
-    const int a = 3;    //row
-    const int b = 3;    //column
-    int array[a][b] = {{1, 2, 3},       //Define 2D array
+    const int a = 3;    /**< Number of rows */
+    const int b = 3;    /**< Number of columns */
+    int array[a][b] = {{1, 2, 3},       /**< Initialize 2D array with sample data */
                         {4, 5, 6},
                         {7, 8, 9}};
 
-    for (int i = 0; i < a; i++){        //loop through row
-        for (int j = 0; j < b; j++){    //loop through column       (start from top left, span right, skip to the next line)
-            std::cout << array[i][j] << " ";        //use standard library to output current cell of array and skip a line
+    for (int i = 0; i < a; i++){
+        for (int j = 0; j < b; j++){
+            std::cout << array[i][j] << " ";
         }
-        std::cout << std::endl;      //after iterating through each column, skip a line
+        std::cout << std::endl;
     }
     return 0;
 }
