@@ -1,4 +1,12 @@
 /**
+ * @file Preprocessor.c
+ * @brief Preprocessor definitions and macros for time calculations
+ * @author Author
+ * @date 2024-12-19
+ * @version 1.0.0
+ */
+
+/**
  * @brief Macro to define the number of seconds in a non-leap year.
  *
  * 365 days/year × 24 hours/day × 60 minutes/hour × 60 seconds/minute.
